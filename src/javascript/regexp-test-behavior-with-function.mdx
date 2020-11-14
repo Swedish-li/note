@@ -1,0 +1,31 @@
+---
+name: 正则的test方法参数为函数时的行为
+route: /js/regexp-test-behavior-with-function
+menu: Javascript
+---
+
+# 正则表达式的test方法参数为函数时的行为
+
+[Javascript regexp test behavior with function](https://stackoverflow.com/questions/19779993/javascript-regexp-test-behavior-with-function)
+
+John Resig 在他的文章 [Simple JavaScript Inheritance](https://johnresig.com/blog/simple-javascript-inheritance/) 中出现了如下代码
+
+```javascript
+var fnTest = /xyz/.test(function() {
+    xyz
+})
+    ? /\b_super\b/
+    : /.*/
+```
+
+1. 由于正则表达式的 test 方法只能处理字符串参数，如果这个参数不为字符串会被强制转换为字符串。
+2. 函数的字符串表示形式通常为这个函数的函数体，内置函数通常会返回下了形式的字符串(并不是所有的时候都会是这样)。
+
+```javascript
+function pow() {
+  [native code]
+}
+
+```
+
+`/xyz/.test(function() { xyz })` 这段代码的目的是校验浏览器返回函数的字符串表示是否为函数体。
