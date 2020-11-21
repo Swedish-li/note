@@ -1,0 +1,94 @@
+---
+name: 使用命令行工具配置安卓虚拟机
+route: /tools/set-up-avd-using-comand-line
+menu: 开发工具
+---
+
+# 使用命令行工具配置安卓虚拟机
+
+[How to Set Up an Android Emulator using Command Line](https://medium.com/@vsburnett/how-to-set-up-an-android-emulator-in-windows-10-e0a3284b5f94)
+
+## 安装 **安卓 SDK**
+
+## 添加环境变量
+
+将 **C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\** 目录下的一些子目录添加到环境变量中
+
+```bash
+# adb
+$ PATH = %PATH%;C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\platform-tools
+
+# emulator
+$ PATH = %PATH%;C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\tools
+
+# sdkmanager
+$ PATH = %PATH%;C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\tools\\bin
+
+```
+
+## 安装 SDK 工具和系统镜像
+
+工具版本列表查看
+
+```bash
+$ sdkmanager --list | findstr platforms
+```
+
+系统镜像列表查看
+
+```bash
+$ sdkmanager --list | findstr system-images
+```
+
+安装对应的 SDK 工具包和系统镜像
+
+```bash
+$ sdkmanager "platform-tools" "platforms;android-30"
+$ sdkmanager "system-images;android-30;google_apis;x86_64"
+$ sdkmanager --licenses
+```
+
+## 创建安卓虚拟机
+
+```bash
+$ avdmanager create avd -n Android30 -k "system-images;android-30;google_apis;x86_64"
+```
+
+## 启动虚拟机
+
+可以使用下面的命令来成功已经创建的虚拟机列表：
+
+```bash
+$ avdmanager list avd
+```
+
+使用下面的命令来启动虚拟机：
+
+```bash
+$ emulator -avd Android30
+```
+
+由于直接使用该命令可能会出现错误，我们可以直接在下面的目录启动命令行来使用该命令。
+
+> C:\Users\user\AppData\Local\Android\sdk\tools
+
+## 查看启动的安卓设备列表
+
+```bash
+$ adb devices
+```
+
+## 删除指定的虚拟机
+
+```bash
+$ avdmanager delete avd -n Android30
+```
+
+## 安装 apk
+
+```bash
+$ adb install -r ./test.apk
+
+# Send commands to a specific device
+$ adb -s emulator-5554 install -r ./test.apk
+```
