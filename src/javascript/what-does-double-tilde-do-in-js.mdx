@@ -1,7 +1,7 @@
+---
 name: 在 javascript 中两个波浪号的作用(~~, double tilde)
 route: /js/whate-double-tilde-do-in-js
 menu: Javascript
-
 ---
 
 `~` 在 javascript 中是一个位操作符(bitwise NOT), 两个波浪号代表队一个操作数连续执行两次 “非” 的位操作。
@@ -11,10 +11,10 @@ menu: Javascript
 操作数可以是浮点数或者字符串，得到的结果是一个数字。这个操作等价于下面的代码:
 
 ```javascript
-    function(x) {
-        if(x < 0) return Math.ceil(x);
-        else return Math.floor(x);
-    }
+function(x) {
+    if(x < 0) return Math.ceil(x);
+    else return Math.floor(x);
+}
 ```
 
 x 的范围需要在 -(2^31) 和 2^31 - 1 之间，否则会产生溢出。
